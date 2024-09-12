@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Impact Section</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ecf0f1; 
+        }
+
+        /* Keyframes for Animated Gradient */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        /* Our Impact Section Styles */
+        .our-impact {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgb(212, 173, 132), rgb(132, 70, 29));
+            background-size: 200% 200%; /* To support animation */
+            animation: gradientAnimation 10s ease infinite; /* Applying the animation */
+            color: #ffffff;
+            max-width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #our-impact {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        #our-impact span {
+            font-size: 1.5rem;
+            color: #f39c12; 
+        }
+
+        .numbers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .number {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .number:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        .number h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .number blockquote {
+            margin: 1.5rem 0;
+            padding: 0;
+            border: none;
+        }
+
+        .number blockquote hr {
+            border: 0;
+            border-top: 2px solid  #553b15;
+            margin: 0.5rem 0;
+        }
+
+        .number p {
+            margin: 0;
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .numbers {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #our-impact {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            #our-impact span {
+                font-size: 1.2rem;
+            }
+
+            .number {
+                padding: 1rem;
+            }
+
+            .number h1 {
+                font-size: 2.5rem;
+            }
+
+            .number p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <!-- ################# Charity Number Starts Here ####################### -->
+
+    <div class="our-impact">
+        <h1 id="our-impact">Our Impact <br> <span>Let's understand our work in numbers</span></h1>
+        <div class="numbers">
+            <div class="number" data-target="65">
+                <h1>0</h1>
+                <blockquote>
+                    <hr>
+                    <p>University students mentored towards their first job/internship</p>
+                </blockquote>
+            </div>
+            <div class="number" data-target="4">
+                <h1>0</h1>
+                <blockquote>
+                    <hr>
+                    <p>Successful project completions</p>
+                </blockquote>
+            </div>
+            <div class="number" data-target="200">
+                <h1>0</h1>
+                <blockquote>
+                    <hr>
+                    <p>Hours of mentorship provided</p>
+                </blockquote>
+            </div>
+            <div class="number" data-target="70">
+                <h1>0</h1>
+                <blockquote>
+                    <hr>
+                    <p>Workshops conducted</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const numbers = document.querySelectorAll('.number');
+
+            function updateNumber(element, target) {
+                const increment = target / 200; // Adjust the divisor to change the speed of the animation
+                let current = 0;
+
+                function update() {
+                    current += increment;
+                    if (current >= target) {
+                        element.innerText = target;
+                    } else {
+                        element.innerText = Math.floor(current);
+                        requestAnimationFrame(update);
+                    }
+                }
+
+                update();
+            }
+
+            function onScroll() {
+                const windowHeight = window.innerHeight;
+                numbers.forEach(number => {
+                    const rect = number.getBoundingClientRect();
+                    if (rect.top < windowHeight && rect.bottom >= 0) {
+                        const target = +number.getAttribute('data-target');
+                        updateNumber(number.querySelector('h1'), target);
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', onScroll);
+            onScroll(); // Trigger scroll event on load
+        });
+    </script>
+</body>
+</html>
